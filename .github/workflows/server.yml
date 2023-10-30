@@ -18,7 +18,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
-          node-version: 14
+          node-version: 18
 
       - name: Yarn cache directory
         id: yarn-cache-dir
@@ -43,22 +43,4 @@ jobs:
       - name: Build Server
         run: yarn server:build
 
-  deploy:
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Check branch code
-        uses: actions/checkout@v2
-
-      - name: Setup Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14
-
-      - name: Install Heroku CLI
-        run: npm install -g heroku
-
-      - name: Deploy server to Heroku
-        run: ./scripts/heroku.sh
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+  
